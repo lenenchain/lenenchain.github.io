@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구민우 | 자기소개 포트폴리오</title>
+  <style>
+    /* --------------------------------------------------
+       1. 기본 스타일 및 리셋 (접근성 & 명암비 준수)
+       -------------------------------------------------- */
+    :root {
+      --bg-color: #f8f9fa;
+      --text-color: #212529;      /* 기본 글자 명암비 4.5:1 이상 */
+      --sub-text: #495057;        /* 보조 글자 명암비 4.5:1 이상 */
+      --primary-color: #0d6efd;   /* 브랜드 칼라 */
+      --primary-hover: #0b5ed7;
+      --card-bg: #ffffff;
+      --border-color: #ced4da;
+      --focus-outline: 3px solid #0d6efd;
+      --badge-like: #d1e7dd;
+      --badge-like-text: #0f5132;
+      --badge-dislike: #f8d7da;
+      --badge-dislike-text: #842029;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    /* 키보드 Tab 이동 시 초점 표시 (T01-C14) */
+    a:focus-visible,
+    button:focus-visible {
+      outline: var(--focus-outline);
+      outline-offset: 3px;
+    }
+
+    .container {
+      max-width: 1200px; /* 1366x768, 1920x1080 반응형 지원 및 가로 넘침 방지 */
+      margin: 0 auto;
+      padding: 20px 24px;
+    }
+
+    /* --------------------------------------------------
+       2. 첫 화면 (1366x768, 1920x1080 노출용) (T01-C10, T01-C11)
+       -------------------------------------------------- */
+    header {
+      padding: 20px 0 10px 0;
+    }
+
+    /* T01-C15: h1 -> h2 순차적 구조 준수 */
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    /* T01-C03: 대상과 목적 한 문장 명시 */
+    .target-purpose {
+      font-size: 1rem;
+      color: var(--sub-text);
+      background-color: #e9ecef;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    /* --------------------------------------------------
+       3. 핵심 소개 (STAR 3개 및 근거) (T01-C06 ~ T01-C09)
+       -------------------------------------------------- */
+    h2 {
+      font-size: 1.4rem;
+      margin: 20px 0 12px 0;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    .star-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .star-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .star-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    .star-item {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .star-label {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .evidence-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .evidence-link:hover {
+      color: var(--primary-hover);
+    }
+
+    /* 취향 태그 스타일 */
+    .tag-container {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: bold;
+    }
+
+    .tag-like {
+      background-color: var(--badge-like);
+      color: var(--badge-like-text);
+    }
+
+    .tag-dislike {
+      background-color: var(--badge-dislike);
+      color: var(--badge-dislike-text);
+    }
+
+    /* --------------------------------------------------
+       4. 상호작용 요소 (아코디언 토글) (T01-C19 ~ T01-C22)
+       -------------------------------------------------- */
+    .interaction-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 30px;
+    }
+
+    .toggle-btn {
+      background-color: var(--primary-color);
+      color: #ffffff; /* 명암비 4.5:1 이상 */
+      border: none;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .toggle-content {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background-color: #f1f3f5;
+      border-radius: 4px;
+    }
+
+    .toggle-content.is-open {
+      display: block;
+    }
+
+    /* T01-C22: 애니메이션 줄이기 (prefers-reduced-motion) 지원 */
+    @media (prefers-reduced-motion: reduce) {
+      .toggle-btn {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+
+    /* T01-C12: 가로 스크롤 방지 */
+    html, body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <!-- T01-C15: 제목 단계 (h1 -> h2 -> h3) 준수 -->
+      <h1>구민우 | 자기소개 포트폴리오</h1>
+      
+      <!-- T01-C03: 한 문장으로 적힌 대상과 목적 -->
+      <p class="target-purpose">
+        본 페이지는 채용 담당자 및 동료를 대상으로 구민우의 핵심 강점, 식성 및 환경 취향, 그리고 관찰 가능한 활동 근거를 소개하기 위해 제작되었습니다.
+      </p>
+    </header>
+
+    <main>
+      <!-- 소개·활동·근거 영역 (T01-C10, T01-C11) -->
+      <section aria-labelledby="section-strengths">
+        <h2 id="section-strengths">핵심 강점 및 취향 (STAR)</h2>
+        
+        <div class="star-grid">
+          <!-- 항목 1: 조화와 균형 (비빔밥) (T01-C06 ~ T01-C09) -->
+          <article class="star-card">
+            <h3>1. 조화와 융합 (좋아하는 것: 비빔밥)</h3>
+            <p class="star-item"><span class="star-label">상황:</span> 학과 팀 프로젝트 중 프론트엔드와 백엔드 간 데이터 전달 포맷 불일치로 병목 현상 발생</p>
+            <p class="star-item"><span class="star-label">행동:</span> 비빔밥의 재료가 모여 조화를 이루듯 OpenAPI Spec 기반 명세서를 도입해 양측 의견을 수렴·조율함</p>
+            <p class="star-item"><span class="star-label">결과:</span> API 커뮤니케이션 소요 시간이 40% 감소하고 전달 오류 0건을 달성함</p>
+            <a href="https://github.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              공개 근거: API 명세 정리 기록 보기
+            </a>
+          </article>
+
+          <!-- 항목 2: 몰입과 실행 (치킨/된장) (T01-C06 ~ T01-C09) -->
+          <article class="star-card">
+            <h3>2. 확실한 몰입과 꾸준함 (좋아하는 것: 치킨, 된장)</h3>
+            <p class="star-item"><span class="star-label">상황:</span> 프로젝트 마감 직전 메인 페이지 진입 로딩 속도가 3초 이상 지연되는 문제 발견</p>
+            <p class="star-item"><span class="star-label">행동:</span> 치킨처럼 확실하게 집중하여 이미지 Lazy Loading을 적용하고, 된장처럼 깊이 있게 CSS 최적화를 꾸준히 수행함</p>
+            <p class="star-item"><span class="star-label">결과:</span> Lighthouse 성능 점수가 62점에서 95점으로 상향됨</p>
+            <a href="https://github.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              공개 근거: Lighthouse 측정 결과 보기
+            </a>
+          </article>
+
+          <!-- 항목 3: 위험 회피 및 신중함 (싫어하는 것: 조개, 게, 새) (T01-C06 ~ T01-C09) -->
+          <article class="star-card">
+            <h3>3. 리스크 관리와 신중함 (싫어하는 것: 조개, 게, 새)</h3>
+            <p class="star-item"><span class="star-label">상황:</span> 단단한 껍질(조개·게)과 예측하기 힘든 돌발 상황(새)처럼 예외 처리가 누락된 코드 작성 위험 직면</p>
+            <p class="star-item"><span class="star-label">행동:</span> 예외 상황을 철저히 사전 차단하기 위해 입력값 검증 및 널 체크(Null Check) 로직을 전수 작성함</p>
+            <p class="star-item"><span class="star-label">결과:</span> 배포 후 브라우저 콘솔 오류 및 런타임 런타임 에러 발생률 0건 유지</p>
+            <a href="https://github.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              공개 근거: 예외 처리 검증 커밋 내역 보기
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- 상호작용 영역 (T01-C19 ~ T01-C22) -->
+      <section class="interaction-section" aria-labelledby="section-interaction">
+        <h2 id="section-interaction">구민우의 취향 세부 요약</h2>
+        <p style="margin-bottom: 12px; color: var(--sub-text);">
+          아래 버튼을 마우스로 클릭하거나, 키보드 Tab 키로 이동 후 Enter/Space 키를 눌러 세부 요약을 확인할 수 있습니다.
+        </p>
+
+        <!-- T01-C20, C21: 마우스/키보드 대응 가능한 button 요소 -->
+        <button type="button" id="toggleBtn" class="toggle-btn" aria-expanded="false" aria-controls="toggleDetail">
+          좋아하는 것 / 싫어하는 것 보기
+        </button>
+
+        <div id="toggleDetail" class="toggle-content" role="region" aria-labelledby="toggleBtn">
+          <p style="margin-bottom: 8px;"><strong>좋아하는 것:</strong></p>
+          <div class="tag-container" style="margin-bottom: 12px;">
+            <span class="tag tag-like">🥣 비빔밥</span>
+            <span class="tag tag-like">🍗 치킨</span>
+            <span class="tag tag-like">🍲 된장</span>
+          </div>
+
+          <p style="margin-bottom: 8px;"><strong>싫어하는 것:</strong></p>
+          <div class="tag-container">
+            <span class="tag tag-dislike">🦪 조개</span>
+            <span class="tag tag-dislike">🦀 게</span>
+            <span class="tag tag-dislike">🐦 새</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- --------------------------------------------------
+       5. JavaScript (상호작용 및 콘솔 오류 0건 유지)
+       -------------------------------------------------- -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleBtn = document.getElementById('toggleBtn');
+      const toggleDetail = document.getElementById('toggleDetail');
+
+      if (toggleBtn && toggleDetail) {
+        toggleBtn.addEventListener('click', function () {
+          const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+          
+          // 상태 토글
+          toggleBtn.setAttribute('aria-expanded', !isExpanded);
+          toggleDetail.classList.toggle('is-open');
+
+          // 버튼 텍스트 변경
+          if (isExpanded) {
+            toggleBtn.textContent = '좋아하는 것 / 싫어하는 것 보기';
+          } else {
+            toggleBtn.textContent = '좋아하는 것 / 싫어하는 것 닫기';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

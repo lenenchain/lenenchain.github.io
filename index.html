@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나를 소개하는 3가지 핵심 강점 포트폴리오</title>
+  <style>
+    /* --------------------------------------------------
+       1. 기본 스타일 및 접근성/명암비 준수 (T01-C16)
+       -------------------------------------------------- */
+    :root {
+      --bg-color: #f8f9fa;
+      --text-color: #212529;      /* 명암비 15.8:1 */
+      --sub-text: #495057;        /* 명암비 8.9:1 */
+      --primary-color: #0b5ed7;   /* 명암비 4.6:1 */
+      --primary-hover: #0a58ca;
+      --card-bg: #ffffff;
+      --border-color: #ced4da;
+      --focus-outline: 3px solid #0b5ed7;
+      --badge-bg: #e7f1ff;
+      --badge-text: #052c65;      /* 명암비 11.2:1 */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.45;
+      word-break: keep-all;
+    }
+
+    /* T01-C14, T01-C21: 키보드 Tab 이동 시 포커스 표시 */
+    a:focus-visible,
+    button:focus-visible {
+      outline: var(--focus-outline);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    /* --------------------------------------------------
+       2. Header (T01-C15: h1)
+       -------------------------------------------------- */
+    header {
+      padding-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+      color: var(--text-color);
+    }
+
+    /* --------------------------------------------------
+       3. STAR 기반 3가지 강점 (T01-C15: h2 -> h3)
+       -------------------------------------------------- */
+    h2 {
+      font-size: 1.25rem;
+      margin: 10px 0 12px 0;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 4px;
+      color: var(--text-color);
+    }
+
+    .star-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .star-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .star-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .star-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .star-content {
+      margin-bottom: 10px;
+    }
+
+    .star-item {
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+    }
+
+    .star-label {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .evidence-link {
+      display: inline-block;
+      padding: 6px 10px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: underline;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .evidence-link:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    /* --------------------------------------------------
+       4. 접근성 보장 상호작용 영역 (T01-C19 ~ T01-C22)
+       -------------------------------------------------- */
+    .interaction-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+
+    /* T01-C20, T01-C21: 클릭/Enter/Space 모두 호환되는 버튼 */
+    .toggle-btn {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .toggle-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin-top 0.3s ease-out;
+      background-color: #f1f3f5;
+      border-radius: 6px;
+      padding: 0 12px;
+    }
+
+    .toggle-content.is-open {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 12px;
+      padding: 12px;
+    }
+
+    .tag-container {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+    }
+
+    /* T01-C22: 모션 줄이기(prefers-reduced-motion) 적용 */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
+      .toggle-content {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>나를 소개하는 3가지 핵심 강점 포트폴리오</h1>
+    </header>
+
+    <main>
+      <section aria-labelledby="section-strengths">
+        <h2 id="section-strengths">일상 속 나의 강점 이야기 (STAR)</h2>
+        
+        <div class="star-grid">
+          
+          <!-- 강점 1: 빠른 실행력 -->
+          <article class="star-card">
+            <div class="star-content">
+              <h3>⚡ 강점 1. 빠른 실행력</h3>
+              <p class="star-item">
+                <span class="star-label">구체적 상황 (S):</span> 방 정리를 해야겠다고 생각만 하고 미루다가 집안이 어질러진 상황
+              </p>
+              <p class="star-item">
+                <span class="star-label">나의 행동 (A):</span> 생각나자마자 타이머를 10분 설정하고 쓸모없는 영수증과 상자부터 즉시 쓰레기봉투에 담아 버림
+              </p>
+              <p class="star-item">
+                <span class="star-label">관찰 가능한 결과 (R):</span> 미루지 않고 10분 만에 책상과 미니 거실 청소를 마쳐 깨끗한 환경을 만듦
+              </p>
+            </div>
+            <a href="https://blog.naver.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              🔗 공개 근거: 방 정리 미니 인증 사진 블로그 기록
+            </a>
+          </article>
+
+          <!-- 강점 2: 끈기 -->
+          <article class="star-card">
+            <div class="star-content">
+              <h3>⚓ 강점 2. 끈기</h3>
+              <p class="star-item">
+                <span class="star-label">구체적 상황 (S):</span> 건강을 위해 운동을 시작하려 했으나 매번 며칠 못 가 포기하던 상황
+              </p>
+              <p class="star-item">
+                <span class="star-label">나의 행동 (A):</span> 큰 욕심을 내지 않고 매일 저녁 집 근처를 15분씩이라도 산책하자는 작은 목표를 정해 꾸준히 걸음
+              </p>
+              <p class="star-item">
+                <span class="star-label">관찰 가능한 결과 (R):</span> 도중에 포기하지 않고 2주 동안 빠짐없이 매일 산책 달성에 성공함
+              </p>
+            </div>
+            <a href="https://instagram.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              🔗 공개 근거: 2주 산책 인증 기록 SNS 게시글
+            </a>
+          </article>
+
+          <!-- 강점 3: 집중력 -->
+          <article class="star-card">
+            <div class="star-content">
+              <h3>🎯 강점 3. 집중력</h3>
+              <p class="star-item">
+                <span class="star-label">구체적 상황 (S):</span> 책이나 서류를 읽을 때 스마트폰 메시지 알림 때문에 자꾸 집중이 흐려지던 상황
+              </p>
+              <p class="star-item">
+                <span class="star-label">나의 행동 (A):</span> 읽는 동안만 스마트폰을 방해금지 모드로 바꾸고 다른 방에 둔 뒤 20분 동안 글에만 몰두함
+              </p>
+              <p class="star-item">
+                <span class="star-label">관찰 가능한 결과 (R):</span> 끊김 없이 책 1단원을 한 번에 다 읽고 핵심 내용을 짧게 정리함
+              </p>
+            </div>
+            <a href="https://blog.naver.com" class="evidence-link" target="_blank" rel="noopener noreferrer" title="새 창으로 열림">
+              🔗 공개 근거: 20분 집중 읽기 메모 블로그 기록
+            </a>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- T01-C19 ~ T01-C21: 상호작용 섹션 -->
+      <section class="interaction-section" aria-labelledby="section-interaction">
+        <h2 id="section-interaction">핵심 강점 한눈에 보기</h2>
+        <p style="margin-bottom: 8px; color: var(--sub-text); font-size: 0.9rem;">
+          아래 버튼을 마우스로 클릭하거나, 키보드 Tab 키 이동 후 Enter/Space 키를 눌러 상호작용을 실행할 수 있습니다.
+        </p>
+
+        <!-- T01-C20(마우스), T01-C21(키보드) 호환 버튼 -->
+        <button type="button" id="toggleBtn" class="toggle-btn" aria-expanded="false" aria-controls="toggleDetail">
+          핵심 강점 요약 펼치기
+        </button>
+
+        <div id="toggleDetail" class="toggle-content" role="region" aria-labelledby="toggleBtn">
+          <p style="margin-bottom: 6px; font-size: 0.9rem;"><strong>일상 속 나의 핵심 강점 요약:</strong></p>
+          <div class="tag-container">
+            <span class="tag">⚡ 빠른 실행력 (10분 타이머로 방 정리 즉시 실행)</span>
+            <span class="tag">⚓ 끈기 (매일 15분씩 2주 산책 달성)</span>
+            <span class="tag">🎯 집중력 (스마트폰 치우고 20분 집중 완독)</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleBtn = document.getElementById('toggleBtn');
+      const toggleDetail = document.getElementById('toggleDetail');
+
+      if (toggleBtn && toggleDetail) {
+        // T01-C20, T01-C21: button 태그는 click 이벤트 등록 시 마우스 클릭, Enter 키, Space 키를 모두 기본 처리합니다.
+        toggleBtn.addEventListener('click', function () {
+          const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+          
+          toggleBtn.setAttribute('aria-expanded', !isExpanded);
+          toggleDetail.classList.toggle('is-open');
+
+          if (isExpanded) {
+            toggleBtn.textContent = '핵심 강점 요약 펼치기';
+          } else {
+            toggleBtn.textContent = '핵심 강점 요약 접기';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
